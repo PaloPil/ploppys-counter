@@ -30,7 +30,6 @@ client.on('message', async message => {
 });
 
 client.on('messageCreate', async message => {
-  message.reply('Reçu !')
 });
 
 
