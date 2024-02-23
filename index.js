@@ -30,7 +30,7 @@ client.on('message', async message => {
 });
 
 client.on('messageCreate', async message => {
-  console.log('msg');
+  message.reply('Reçu !')
 });
 
 
