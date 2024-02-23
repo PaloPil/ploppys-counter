@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 let url = 'https://www.draftbot.fr/economy/202859617917599745';
 
 const client = new Discord.Client({
-  intents: 8,
+  intents: 3276799,
   partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 });
 
