@@ -22,6 +22,7 @@ client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
 client.on('message', async message => {
   console.log('Message received!');
   if (message.content == '!money') {
+    message.channel.send('Starting count!')
     console.log('Starting count!');
     let money = await current_money();
     message.reply('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
