@@ -33,8 +33,12 @@ client.on('message', async message => {
 client.on('messageCreate', async message => {
   if (message.content == '!money') {
     console.log('Starting count!');
-    let money = await current_money();
-    message.reply('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
+    try {
+      let money = await current_money();
+      message.reply('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
+    } catch (error) {
+      message.reply(error)
+    }
   }
 });
 
