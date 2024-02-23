@@ -31,8 +31,6 @@ client.on('message', async message => {
 });
 
 client.on('messageCreate', async message => {
-  console.log('Message received!');
-  message.channel.send('Starting count!')
   if (message.content == '!money') {
     console.log('Starting count!');
     let money = await current_money();
