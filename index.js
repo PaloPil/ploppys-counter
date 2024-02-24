@@ -21,13 +21,15 @@ client.once("disconnect", () => client.error("Bot is disconnecting...", "warn"))
 client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
 
 client.on('messageCreate', async message => {
+  if (message.author.bot) return;
+  message.reply('Hello!');
   if (message.content == '!money') {
-    console.log('Starting count!');
+    message.reply('Starting count...');
     try {
       let money = await current_money(message.channel);
-      message.reply('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
+      message.channel.send('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
     } catch (error) {
-      message.reply(error)
+      message.channel.send(error);
     }
   }
 });
