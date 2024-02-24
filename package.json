@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon ./index.js",
-    "heroku-postbuild": "mkdir ./.cache && cp /app/.cache/puppeteer ./.cache -r"
+    "heroku-postbuild": "mkdir ./.cache && cp /app/.cache/puppeteer ./.cache -rn"
   },
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
