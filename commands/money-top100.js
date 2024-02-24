@@ -27,7 +27,7 @@ module.exports = {
 };
 
 async function current_money() {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
   
     await page.goto(top100_url);
