@@ -11,7 +11,7 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
-  client.user.setPresence({ activities: [{ name: '/money100', type: Discord.ActivityType.Watching }], status: 'online' });
+  client.user.setPresence({ activities: [{ name: 'Your money 💰', type: Discord.ActivityType.Watching }], status: 'online' });
   console.log('Client connected as @' + client.user.tag);
   client.channels.fetch("1068895807857770579").then(channel => { channel.send('Bot is connected!'); });
 });
