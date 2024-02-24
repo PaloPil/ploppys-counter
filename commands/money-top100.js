@@ -1,21 +1,27 @@
 'use strict';
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
-const { SlashCommandBuilder } = require("@discordjs/builders")
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const puppeteer = require('puppeteer');
+const path = require('node:path');
+
+const command_name = path.basename(__filename).replace('.js', '');
 
 let top100_url = 'https://www.draftbot.fr/economy/202859617917599745';
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('money100')
+        .setName(command_name)
         .setDescription('Permet d\'obtenir le nombre de Ploppy\'s en circulation dans le top 100.'),
     async execute(client, interaction) {
         await interaction.deferReply();
-        console.log('Commande \'!money\' reçue. Calcul en cours...');
+        console.log('Commande \'/' + this.data.name + '\' reçue. Calcul en cours...');
+
         let money = await current_money();
         const embed = new Discord.EmbedBuilder()
             .setTitle('__**Nombre de Ploppy\'s en circulation dans le top 100**__')
             .setDescription('**' + money.toString() + ' 💰**');
+        
         interaction.editReply({ content: '', embeds: [embed] });
     },
 };

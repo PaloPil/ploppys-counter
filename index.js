@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
-const puppeteer = require('puppeteer');
 
 const client = new Discord.Client({
   intents: 3276799,
