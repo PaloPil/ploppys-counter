@@ -23,6 +23,8 @@ module.exports = {
             .setDescription('**' + money.toString() + ' 💰**');
         
         interaction.editReply({ content: '', embeds: [embed] });
+
+        console.log('Opération terminée !')
     },
 };
 
