@@ -44,10 +44,6 @@ async function current_money() {
 
   await page.goto(url);
 
-  let top_100 = await page.evaluate('document.querySelectorAll("div.money span")');
-  console.log(top_100.length);
-  console.log(top_100[0].innerText);
-
   let total_money = 0;
 
   for (let i = 0; i < 100; i++) {
