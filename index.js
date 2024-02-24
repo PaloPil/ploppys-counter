@@ -10,7 +10,7 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
-  client.user.setPresence({ activities: [{ name: '!money', type: Discord.ActivityType.Watching }], status: 'idle' });
+  client.user.setPresence({ activities: [{ name: '!money', type: Discord.ActivityType.Watching }], status: 'online' });
   console.log('Client connected as @' + client.user.tag);
   client.channels.fetch("1068895807857770579").then(channel => { channel.send('Bot is connected!'); });
 });
@@ -19,16 +19,6 @@ client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
 client.once("disconnect", () => client.error("Bot is disconnecting...", "warn"));
 client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
-
-client.on('message', async message => {
-  console.log('Message received!');
-  message.channel.send('Starting count!')
-  if (message.content == '!money') {
-    console.log('Starting count!');
-    let money = await current_money();
-    message.reply('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
-  }
-});
 
 client.on('messageCreate', async message => {
   if (message.content == '!money') {
