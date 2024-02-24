@@ -22,7 +22,6 @@ client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
-  message.reply('Hello!');
   if (message.content == '!money') {
     message.reply('Starting count...');
     try {
