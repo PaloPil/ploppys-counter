@@ -23,35 +23,39 @@ client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
   if (message.content == '!money') {
-    message.reply('Starting count...');
+    let msg = await message.reply('*En cours...*');
+    console.log('Commande \'!money\' reçue. Calcul en cours...');
     try {
-      let money = await current_money(message.channel);
-      message.channel.send('Il y a ' + money.toString() + ' Ploppy\'s en circulation dans le top 100.');
+      let money = await current_money();
+      const embed = new Discord.EmbedBuilder()
+        .setTitle('__**Nombre de Ploppy\'s en circulation dans le top 100**__')
+        .setDescription('**' + money.toString() + ' 💰**');
+      msg.edit({ content: '', embeds: [embed] });
     } catch (error) {
-      message.channel.send(error);
+      message.channel.send('__**Error:**__ ' + error.toString());
     }
   }
 });
 
 
-async function current_money(channel) {
+async function current_money() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   await page.goto(url);
-  channel.send('Début de la recherche')
+
+  let top_100 = await page.evaluate('document.querySelectorAll("div.money span")');
+  console.log(top_100.length);
+  console.log(top_100[0].innerText);
 
   let total_money = 0;
 
-  let top100 = await page.evaluate('() => Array.from(document.querySelectorAll("div.money span"), e => e.innerText)');
-  channel.send('Acces à la page')
-
   for (let i = 0; i < 100; i++) {
-    channel.send('Boucle ' + i)
-    if (top100[i].includes("k")) {
-      total_money += 1000*parseFloat(top100[i].replace("k",""));
+    let content = await page.evaluate('document.querySelectorAll("div.money span")[' + i.toString() + '].innerText');
+    if (content.includes("k")) {
+      total_money += 1000*parseFloat(content.replace("k",""));
     } else {
-      total_money += parseFloat(top100[i]);
+      total_money += parseFloat(content);
     }
   }
 
