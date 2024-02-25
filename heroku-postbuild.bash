@@ -1,3 +1,7 @@
 echo -e "Store puppeteer executable in cache\n"
 mkdir ./.cache
-mv ~/.cache/puppeteer ./.cache
+if [ -d "/app/.cache/puppeteer" ]; then
+    mv /app/.cache/puppeteer ./.cac
+else
+    echo "/app/.cache/puppeteer does not exist, ignoring..."
+fi
