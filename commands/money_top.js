@@ -36,13 +36,13 @@ module.exports = {
         await interaction.deferReply();
         console.log('Calcul du nombre de Ploppy\'s dans le top ' + top.toString() + ' en cours...');
 
-        let money = await current_money(top);
+        let money = (await current_money(top)).toLocaleString('fr-FR');
 
-        console.log(money.toString() + " Ploppy\'s recensés.")
+        console.log(money + " Ploppy\'s recensés.")
 
         const embed = new Discord.EmbedBuilder()
           .setTitle('__**Nombre de Ploppy\'s en circulation dans le top ' + top.toString() + ' :**__')
-          .setDescription('**' + money.toString() + ' 💰**');
+          .setDescription('**' + money + ' 💰**');
         
         interaction.editReply({ content: '', embeds: [embed] });
 
