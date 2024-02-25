@@ -6,4 +6,5 @@ else
     echo "/app/.cache/puppeteer does not exist, installing Chrome..."
     npx puppeteer browsers install chrome
     mv /app/.cache/puppeteer ./.cache
+    echo "Puppeteer cached"
 fi
