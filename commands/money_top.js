@@ -23,7 +23,7 @@ module.exports = {
         .setRequired(false)
     ),
 
-  async execute(client, interaction) {
+  async execute(interaction) {
     console.log(`Commande '/${this.data.name}' reçue.`);
 
     // Args handling
