@@ -23,41 +23,29 @@ module.exports = {
         .setRequired(false)
     ),
 
-  async execute(interaction) {
-    console.log("Commande '/" + this.data.name + "' reçue.");
+  async execute(client, interaction) {
+    console.log(`Commande '/${this.data.name}' reçue.`);
 
     // Args handling
     let top = interaction.options.getString("top") || 100;
     try {
       top = parseInt(top);
     } catch (error) {
-      console.log(
-        "'" +
-          top +
-          "' n'est pas un nombre valide. Utilisation de la valeur par défaut (100)."
-      );
+      console.log(`'${top}' n'est pas un nombre valide. Utilisation de la valeur par défaut (100).`);
       top = 100;
     }
 
     if (top > 0 && top <= 100) {
       await interaction.deferReply();
-      console.log(
-        "Calcul du nombre de Ploppy's dans le top " +
-          top.toString() +
-          " en cours..."
-      );
+      console.log(`Calcul du nombre de Ploppy's dans le top ${top.toString()} en cours...`);
 
       let money = (await current_money(top)).toLocaleString("fr-FR");
 
-      console.log(money + " Ploppy's recensés.");
+      console.log(`${money} Ploppy's recensés.`);
 
       const embed = new EmbedBuilder()
-        .setTitle(
-          "__**Nombre de Ploppy's en circulation dans le top " +
-            top.toString() +
-            " :**__"
-        )
-        .setDescription("**" + money + " 💰**");
+        .setTitle(`__**Nombre de Ploppy's en circulation dans le top ${top.toString()} :**__`)
+        .setDescription(`**${money} 💰**`);
 
       interaction.editReply({ content: "", embeds: [embed] });
 
@@ -82,9 +70,7 @@ async function current_money(top) {
 
   for (let i = 0; i < top; i++) {
     let content = await page.evaluate(
-      'document.querySelectorAll("div.money span")[' +
-        i.toString() +
-        "].innerText"
+      `document.querySelectorAll("div.money span")[${i.toString()}].innerText`
     );
     if (content.includes("k")) {
       total_money += 1000 * parseFloat(content.replace("k", ""));

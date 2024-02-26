@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, ActivityType } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 const { REST } = require("@discordjs/rest");
@@ -10,6 +10,16 @@ const client = new Client({
   intents: 3276799,
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
+
+client.on('ready', () => {
+	client.user.setPresence({
+		activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
+		status: "online",
+	});
+	console.log("Client connected as @" + client.user.tag);
+	client.channels.fetch("1068895807857770579").then((channel) => {
+		channel.send("Bot is connected!");
+	});});
 
 client.commands = new Collection();
 
@@ -72,5 +82,10 @@ for (const file of commandFiles) {
     console.error(error);
   }
 })();
+
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.once("disconnect", () => client.error("Bot is disconnecting...", "warn"));
+client.once("reconnecting", () => client.warn("Bot reconnecting...", "log"));
 
 client.login(process.env.BOT_TOKEN);

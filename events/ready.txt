@@ -3,7 +3,7 @@ const { ActivityType } = require("discord.js");
 module.exports = {
   name: "ClientReady",
 
-  async execute(interaction) {
+  async execute(client, interaction) {
     interaction.client.user.setPresence({
       activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
       status: "online",
