@@ -11,17 +11,6 @@ const client = new Client({
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 
-client.on('ready', () => {
-	client.user.setPresence({
-		activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
-		status: "online",
-	});
-	console.log("Client connected as @" + client.user.tag);
-	client.channels.fetch("1068895807857770579").then((channel) => {
-		channel.send("Bot is connected!");
-	});
-});
-
 client.commands = new Collection();
 
 const eventFiles = fs
@@ -29,6 +18,7 @@ const eventFiles = fs
   .filter((file) => file.endsWith(".js"));
 
 for (const file of eventFiles) {
+  console.log(`Loading event ${file}`);
   const event = require(`./events/${file}`);
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args, client));

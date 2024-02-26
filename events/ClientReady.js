@@ -1,15 +1,16 @@
-const { ActivityType } = require("discord.js");
+const { ActivityType, Events } = require("discord.js");
 
 module.exports = {
-  name: "ClientReady",
+  name: Events.ClientReady,
+  once: true,
 
-  async execute(client, interaction) {
-    interaction.client.user.setPresence({
+  async execute(client) {
+    client.user.setPresence({
       activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
       status: "online",
     });
     console.log("Client connected as @" + client.user.tag);
-    interaction.client.channels.fetch("1068895807857770579").then((channel) => {
+    client.channels.fetch("1068895807857770579").then((channel) => {
       channel.send("Bot is connected!");
     });
   },
