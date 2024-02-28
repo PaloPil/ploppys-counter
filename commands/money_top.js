@@ -1,4 +1,3 @@
-"use strict";
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const puppeteer = require("puppeteer");
@@ -57,7 +56,7 @@ module.exports = {
         ephemeral: true,
       });
     }
-  },
+  }
 };
 
 async function current_money(top) {
