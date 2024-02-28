@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, Collection, ActivityType } = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 const { REST } = require("@discordjs/rest");
