@@ -2,8 +2,11 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
 const path = require("node:path");
 const Airtable = require("airtable");
+const { alliances_list } = require("../index");
 
 const command_name = path.basename(__filename).replace(".js", "");
+
+let test_list = [ { name: 'AEBA', value: 'AEBA' }, { name: 'UMC', value: 'UMC' } ];
 
 Airtable.configure({
     endpointUrl: "https://api.airtable.com",
@@ -11,6 +14,7 @@ Airtable.configure({
 });
 
 const base = Airtable.base("appeYG7d19Q0JDnkh");
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,6 +29,9 @@ module.exports = {
           "Anagramme de l'alliance dont on souhaite obtenir le solde."
         )
         .setRequired(true)
+        .addChoices(
+            ...alliances_list
+        )
     ),
 
   async execute(interaction) {
@@ -41,7 +48,7 @@ module.exports = {
     let nom_alliance = infos_alliance[0];
     let solde_alliance = infos_alliance[1].toLocaleString("fr-FR");
 
-    if (nom_alliance == null) {
+    if (nom_alliance == "") {
         console.log("Cette alliance n'existe pas.")
         interaction.editReply({ content: `L'alliance **${alliance_nickname}** n'existe pas.` });
         return;

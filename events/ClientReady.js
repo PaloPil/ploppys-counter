@@ -1,4 +1,5 @@
 const { ActivityType, Events } = require("discord.js");
+const { alliances_list } = require("../index");
 
 module.exports = {
   name: Events.ClientReady,

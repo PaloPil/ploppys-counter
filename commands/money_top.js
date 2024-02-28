@@ -2,6 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const puppeteer = require("puppeteer");
 const path = require("node:path");
+const { alliances_list } = require("../index");
 
 const command_name = path.basename(__filename).replace(".js", "");
 
@@ -13,49 +14,37 @@ module.exports = {
     .setDescription(
       "Permet d'obtenir le nombre de Ploppy's en circulation dans le top 100."
     )
-    .addStringOption((option) =>
+    .addIntegerOption((option) =>
       option
         .setName("top")
         .setDescription(
           "Choisir le nombre de joueurs à prendre en compte - (Défaut : 100)"
         )
         .setRequired(false)
+        .setMinValue(1)
+        .setMaxValue(100)
     ),
 
   async execute(interaction) {
     console.log(`Commande '/${this.data.name}' reçue.`);
 
     // Args handling
-    let top = interaction.options.getString("top") || 100;
-    try {
-      top = parseInt(top);
-    } catch (error) {
-      console.log(`'${top}' n'est pas un nombre valide. Utilisation de la valeur par défaut (100).`);
-      top = 100;
-    }
+    let top = interaction.options.getInteger("top") || 100;
 
-    if (top > 0 && top <= 100) {
-      await interaction.deferReply();
-      console.log(`Calcul du nombre de Ploppy's dans le top ${top.toString()} en cours...`);
+    await interaction.deferReply();
+    console.log(`Calcul du nombre de Ploppy's dans le top ${top.toString()} en cours...`);
 
-      let money = (await current_money(top)).toLocaleString("fr-FR");
+    let money = (await current_money(top)).toLocaleString("fr-FR");
 
-      console.log(`${money} Ploppy's recensés.`);
+    console.log(`${money} Ploppy's recensés.`);
 
-      const embed = new EmbedBuilder()
-        .setTitle(`__**Nombre de Ploppy's en circulation dans le top ${top.toString()} :**__`)
-        .setDescription(`**${money} 💰**`);
+    const embed = new EmbedBuilder()
+      .setTitle(`__**Nombre de Ploppy's en circulation dans le top ${top.toString()} :**__`)
+      .setDescription(`**${money} 💰**`);
 
-      interaction.editReply({ content: "", embeds: [embed] });
+    interaction.editReply({ content: "", embeds: [embed] });
 
-      console.log("Opération terminée !");
-    } else {
-      console.log("Erreur: valeur invalide, annulation de la commande.");
-      interaction.reply({
-        content: "Seules des valeurs entre 1 et 100 sont acceptées.",
-        ephemeral: true,
-      });
-    }
+    console.log("Opération terminée !");
   }
 };
 
