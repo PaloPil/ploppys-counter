@@ -56,7 +56,7 @@ module.exports = {
         process.stdout.write("Mise à jour dans la liste... ");
         alliances_list.forEach((alliance) => {
             if (alliance.value == alliance_nickname) {
-                alliance.argent = solde_alliance.replace(" ", "");
+                alliance.argent = parseInt(solde_alliance.replace(" ", ""));
             }
         });
         console.log("Effectuée !");

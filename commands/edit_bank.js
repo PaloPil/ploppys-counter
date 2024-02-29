@@ -93,7 +93,7 @@ module.exports = {
           (async () => {
             alliances_list.forEach((alliance) => {
               if (alliance.value.toUpperCase() == alliance_nickname) {
-                alliance.argent = nouveau_solde;
+                alliance.argent = parseInt(nouveau_solde);
               }
             });
           })().then(async () =>{
