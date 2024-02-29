@@ -6,8 +6,6 @@ const { alliances_list } = require("../index");
 
 const command_name = path.basename(__filename).replace(".js", "");
 
-let test_list = [ { name: 'AEBA', value: 'AEBA' }, { name: 'UMC', value: 'UMC' } ];
-
 Airtable.configure({
     endpointUrl: "https://api.airtable.com",
     apiKey: process.env.AIRTABLE_API_KEY,
@@ -68,6 +66,7 @@ module.exports = {
 async function infos(alliance_nick) {
     let solde = 0;
     let nom = "";
+    let id = "";
     let records = await base("Banques d'alliance").select({
         filterByFormula: `{Diminutif} = "${alliance_nick}"`
     }).firstPage();
@@ -75,7 +74,8 @@ async function infos(alliance_nick) {
     if (records.length > 0) {
         nom = records[0].get("Nom de l'alliance");
         solde = records[0].get("Solde");
+        id = records[0].id;
     }
 
-    return [nom, solde];
+    return [nom, solde, id];
 }
