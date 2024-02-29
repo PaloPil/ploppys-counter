@@ -19,7 +19,9 @@ module.exports = {
     let alliances = "";
 
     alliances_list.forEach((alliance) => {
-      alliances = alliances + `• **${alliance.name}** *(${alliance.value.toUpperCase()})* \n`;
+      console.log(alliance.argent + " / " + alliance.argent/1000)
+      let solde_k = Math.round(alliance.argent/1000).toLocaleString("fr-FR") + "k";
+      alliances = alliances + `• **${alliance.name}** *(${alliance.value.toUpperCase()})*  - ${solde_k} 💰\n`;
     });
 
     const embed = new EmbedBuilder()

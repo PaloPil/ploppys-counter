@@ -52,6 +52,15 @@ module.exports = {
         return;
     } else {
         console.log(`Solde de l'alliance : ${solde_alliance} 💰`);
+
+        process.stdout.write("Mise à jour dans la liste... ");
+        alliances_list.forEach((alliance) => {
+            if (alliance.value == alliance_nickname) {
+                alliance.argent = solde_alliance.replace(" ", "");
+            }
+        });
+        console.log("Effectuée !");
+
         const embed = new EmbedBuilder()
         .setTitle(`__**Solde de la banque de l'alliance**__`)
         .setDescription(`__**${nom_alliance}**__ \n\n **${solde_alliance} 💰**`);

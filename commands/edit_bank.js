@@ -49,7 +49,7 @@ module.exports = {
 
     if (allowed_users.includes(interaction.user.id)) {
 
-      interaction.deferReply();
+      await interaction.deferReply();
 
       //Args handling
       let alliance_nickname = interaction.options.getString("alliance").replace(" ", "").toUpperCase();
@@ -64,9 +64,9 @@ module.exports = {
 
       if (nom_alliance == "") {
 
-          console.log("Cette alliance n'existe pas.")
-          await interaction.editReply({ content: `L'alliance **${alliance_nickname}** n'existe pas.` });
-          return;
+        console.log("Cette alliance n'existe pas.")
+        await interaction.editReply({ content: `L'alliance **${alliance_nickname}** n'existe pas.` });
+        return;
 
       } else {
 
@@ -89,12 +89,21 @@ module.exports = {
 
           console.log(`Modification du solde de l'alliance '${alliance_nickname}' par ${montant} 💰. (Demande de @${interaction.user.username})`);
 
-          await interaction.editReply({ content: `Le solde de la banque de l'alliance **${nom_alliance}** a été modifié de **${montant.toLocaleString("fr-FR")} 💰**. \n\n**__Nouveau solde :__ ${nouveau_solde.toLocaleString("fr-FR")} 💰**.` });
+          process.stdout.write("Mise à jour dans la liste... ");
+          (async () => {
+            alliances_list.forEach((alliance) => {
+              if (alliance.value.toUpperCase() == alliance_nickname) {
+                alliance.argent = nouveau_solde;
+              }
+            });
+          })().then(async () =>{
+            console.log("Effectuée !");
+            await interaction.editReply({ content: `Le solde de la banque de l'alliance **${nom_alliance}** a été modifié de **${montant.toLocaleString("fr-FR")} 💰**. \n\n**__Nouveau solde :__ ${nouveau_solde.toLocaleString("fr-FR")} 💰**.` });
 
+            console.log("Opération terminée !");
+          });
         }
       }
-
-      console.log("Opération terminée !");
 
     } else {
       console.log("Utilisateur non autorisé. Annulation immédiate de la commande.");
