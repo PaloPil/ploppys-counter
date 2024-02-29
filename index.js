@@ -18,12 +18,13 @@ const base = Airtable.base("appeYG7d19Q0JDnkh");
 
 (async () => {
   let records = await base("Banques d'alliance").select({
-    fields: ["Diminutif"],
+    fields: ["Nom de l'alliance", "Diminutif"],
   }).firstPage();
   records.forEach((record) => {
+    let nom = record.get("Nom de l'alliance");
     let diminutif = record.get("Diminutif");
     console.log("Loading alliance " + diminutif);
-    alliances_list.push({ name: diminutif, value : diminutif });
+    alliances_list.push({ name: nom, value : diminutif });
   });
 })().then(() => {
   const client = new Client({
