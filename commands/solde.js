@@ -57,9 +57,9 @@ module.exports = {
         alliances_list.forEach((alliance) => {
             if (alliance.value == alliance_nickname) {
                 alliance.argent = parseInt(solde_alliance.replace(" ", ""));
+                console.log("Effectuée !");
             }
         });
-        console.log("Effectuée !");
 
         const embed = new EmbedBuilder()
         .setTitle(`__**Solde de la banque de l'alliance**__`)
