@@ -18,7 +18,9 @@ Un bot Discord utilisé sur le serveur Discord **Plopin** pour compter le nombre
 
 ```
 commands/
-  example.txt
+  alliances.js
+  edit_bank.js
+  example_command.txt
   money_top.js
   solde.js
 events/
