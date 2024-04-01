@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { PermissionFlagsBits, EmbedBuilder } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const path = require("node:path");
+const dayjs = require("dayjs");
 
 const command_name = path.basename(__filename).replace(".js", "");
 
@@ -36,7 +37,7 @@ module.exports = {
 
     const raison =
       interaction.options.getString("raison") ?? "Pas de raison. ¯\\_(ツ)_/¯";
-    
+
     const timeout = interaction.options.getBoolean("timeout") ?? false;
 
     // Execution
@@ -60,7 +61,11 @@ module.exports = {
       ephemeral: false,
     });
 
-    if (timeout && (interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    if (
+      timeout &&
+      (interaction.memberPermissions.toArray().includes("KickMembers") ||
+        interaction.user.id == "763337508175216641") /* PaloPil */
+    ) {
       try {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(30 * 1000);
@@ -73,7 +78,14 @@ module.exports = {
           "``` " + error.message.replace(`\\n`, "   ") + " ```"
         );
       }
-    } else if (!(interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    } else if (
+      !(
+        (
+          interaction.memberPermissions.toArray().includes("KickMembers") ||
+          interaction.user.id == "763337508175216641"
+        ) /* PaloPil */
+      )
+    ) {
       await interaction.followUp({
         content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
         ephemeral: true,
@@ -81,7 +93,7 @@ module.exports = {
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
-    if (new Date().getDate() === 1 && new Date().getMonth() === 3) {
+    if (dayjs().format("DD/MM") === "01/04") {
       const jokeMessage = await interaction.followUp({
         content: `||:fish:||`,
         ephemeral: false,
