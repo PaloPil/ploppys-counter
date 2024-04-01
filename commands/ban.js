@@ -53,9 +53,14 @@ module.exports = {
     });
 
     try {
-      interaction.guild.members.fetch(target.id).timeout(30 * 1000);
+      interaction.guild.members.search(target.id).timeout(30 * 1000);
     } catch (e) {
-      interaction.followUp("```\n" + e + "\n```");
+      interaction.followUp(
+        "```\n" +
+          e +
+          `\n${interaction.guild.members.search(target.id)}` +
+          "\n```"
+      );
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
