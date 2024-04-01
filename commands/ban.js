@@ -70,7 +70,7 @@ module.exports = {
         });
       } catch (error) {
         await console.log(
-          "```\n" + error.message + "\n```"
+          "``` " + error.message.replace(`\\n`, "   ") + " ```"
         );
       }
     } else if (!(interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
