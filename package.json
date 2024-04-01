@@ -11,7 +11,6 @@
     "@discordjs/builders": "^1.4.0",
     "@discordjs/rest": "^1.5.0",
     "airtable": "^0.12.2",
-    "dayjs": "^1.11.10",
     "discord.js": "^14.11.0",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.0",

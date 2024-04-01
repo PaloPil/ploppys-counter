@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
 const path = require("node:path");
-const dayjs = require("dayjs");
 
 const command_name = path.basename(__filename).replace(".js", "");
 
@@ -93,7 +92,7 @@ module.exports = {
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
-    if (dayjs().format("DD/MM") === "01/04") {
+    if (new Date().getDate() === 1 && new Date().getMonth() === 3) {
       const jokeMessage = await interaction.followUp({
         content: `||:fish:||`,
         ephemeral: false,
