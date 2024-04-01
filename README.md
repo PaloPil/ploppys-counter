@@ -16,11 +16,11 @@ Un bot Discord utilisé sur le serveur Discord **Plopin** pour compter le nombre
 
 # Files / Fichiers
 
-```
+```js
 commands/
   alliances.js
   edit_bank.js
-  example_command.txt
+  ban.js -> APRIL FOOLS !!! | PREMIER AVRIL !!!
   money_top.js
   solde.js
 events/
@@ -29,6 +29,7 @@ events/
 .gitignore
 heroku-postbuild.bash
 index.js
+commandExample.md
 package.json
 Procfile
 README.md

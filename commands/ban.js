@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { PermissionFlagsBits, EmbedBuilder } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const path = require("node:path");
 
 const command_name = path.basename(__filename).replace(".js", "");
@@ -66,7 +66,7 @@ module.exports = {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(timeout * 1000);
         await interaction.followUp({
-          content: `L'utilisateur a été mis en timeout pour ${timeout} seconde${timeout>1 ? "s" : ""}.`,
+          content: `:white_check_mark: **L'utilisateur a été mis en timeout pour ${timeout} seconde${timeout>1 ? "s" : ""}.**`,
           ephemeral: true,
         });
       } catch (error) {
