@@ -57,7 +57,9 @@ module.exports = {
     try {
       guildTarget.timeout(30 * 1000);
     } catch (error) {
-      interaction.followUp("```\n" + error.message + "\n```");
+      interaction.followUp(
+        "```\n" + error.message + "\n" + guildTarget + "\n```"
+      );
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
