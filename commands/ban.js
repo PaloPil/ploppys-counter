@@ -13,7 +13,7 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("target")
-        .setDescription("L'utilisateur à bannir ! :fish:")
+        .setDescription("L'utilisateur à bannir !")
         .setRequired(true)
     )
     .addStringOption((option) =>
@@ -22,11 +22,12 @@ module.exports = {
         .setDescription("La raison du ban ! :fish:")
         .setRequired(false)
     )
-    .addBooleanOption((option) =>
+    .addIntegerOption((option) =>
       option
         .setName("timeout")
-        .setDescription("Mettre en timeout l'utilisateur ?")
+        .setDescription("Temps de timeout de l'utilisateur (en secondes) !")
         .setRequired(false)
+        .setMinValue(0)
     ),
 
   async execute(interaction) {
@@ -37,7 +38,7 @@ module.exports = {
     const raison =
       interaction.options.getString("raison") ?? "Pas de raison. ¯\\_(ツ)_/¯";
     
-    const timeout = interaction.options.getBoolean("timeout") ?? false;
+    const timeout = interaction.options.getInteger("timeout") ?? 0;
 
     // Execution
 
@@ -60,10 +61,10 @@ module.exports = {
       ephemeral: false,
     });
 
-    if (timeout && (interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    if (timeout!=0 && (interaction.memberPermissions.toArray().includes("ModerateMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
       try {
         const guildTarget = await interaction.guild.members.fetch(target);
-        await guildTarget.timeout(30 * 1000);
+        await guildTarget.timeout(timeout * 1000);
         await interaction.followUp({
           content: `L'utilisateur a été mis en timeout pour 30 secondes.`,
           ephemeral: true,
@@ -73,14 +74,14 @@ module.exports = {
           "``` " + error.message.replace(`\\n`, "   ") + " ```"
         );
       }
-    } else if (!(interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    } else if (!(interaction.memberPermissions.toArray().includes("ModerateMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
       await interaction.followUp({
         content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
         ephemeral: true,
       });
     }
 
-    // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
+    // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the 1st of April
     if (new Date().getDate() === 1 && new Date().getMonth() === 3) {
       const jokeMessage = await interaction.followUp({
         content: `||:fish:||`,
