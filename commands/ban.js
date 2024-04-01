@@ -28,7 +28,7 @@ module.exports = {
     console.log(`Commande '/${this.data.name}' reçue. (fakeban)`);
     // Args handling
     const target = interaction.options.getUser("target");
-    const guildTarget = interaction.guild.members.fetch(target);
+    const guildTarget = await interaction.guild.members.search(target);
 
     const raison =
       interaction.options.getString("raison") || "Pas de raison. ¯\\_(ツ)_/¯";
