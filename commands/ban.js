@@ -19,7 +19,7 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("raison")
-        .setDescription("La raison du ban ! :fish:")
+        .setDescription("La raison du ban !")
         .setRequired(false)
     )
     .addIntegerOption((option) =>
