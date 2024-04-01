@@ -14,7 +14,7 @@ Un bot Discord utilisé sur le serveur Discord **Plopin** pour compter le nombre
 
 Écrit en JavaScript en utilisant la bibliothèque Discord.js et Puppeteer pour le web scraping du nombre de Ploppy's.
 
-# Files
+# Files / Fichiers
 
 ```
 commands/
@@ -33,3 +33,9 @@ package.json
 Procfile
 README.md
 ```
+
+# Command Example / Exemple de commande
+
+For the command example see [commandExample file](./commandExample.md)
+
+Pour l'exemple de commande consultez [le fichier commandExample](./commandExample.md)
