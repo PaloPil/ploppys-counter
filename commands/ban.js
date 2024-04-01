@@ -22,6 +22,12 @@ module.exports = {
         .setDescription("La raison du ban ! :fish:")
         .setRequired(false)
     )
+    .addBooleanOption((option) =>
+      option
+        .setName("timeout")
+        .setDescription("Mettre en timeout l'utilisateur ?")
+        .setRequired(false)
+    )
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 
   async execute(interaction) {
@@ -30,7 +36,9 @@ module.exports = {
     const target = interaction.options.getUser("target");
 
     const raison =
-      interaction.options.getString("raison") || "Pas de raison. ¯\\_(ツ)_/¯";
+      interaction.options.getString("raison") ?? "Pas de raison. ¯\\_(ツ)_/¯";
+    
+    const timeout = interaction.options.getBoolean("timeout") ?? false;
 
     // Execution
 
@@ -53,13 +61,15 @@ module.exports = {
       ephemeral: false,
     });
 
-    try {
-      const guildTarget = await interaction.guild.members.fetch(target);
-      await guildTarget.timeout(30 * 1000);
-    } catch (error) {
-      await interaction.followUp(
-        "```\n" + error.message + "\n" + guildTarget + "\n```"
-      );
+    if (timeout && interaction.user.permissions.has(PermissionFlagsBits.KickMembers)) {
+      try {
+        const guildTarget = await interaction.guild.members.fetch(target);
+        await guildTarget.timeout(30 * 1000);
+      } catch (error) {
+        await interaction.followUp(
+          "```\n" + error.message + "\n" + guildTarget + "\n```"
+        );
+      }
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
