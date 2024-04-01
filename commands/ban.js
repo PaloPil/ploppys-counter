@@ -70,7 +70,7 @@ module.exports = {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(30 * 1000);
         await interaction.followUp({
-          content: `L'utilisateur a été mis en timeout pour 30 secondes.`,
+          content: `:white_check_mark: **L'utilisateur a été mis en timeout pour 30 secondes.**`,
           ephemeral: true,
         });
       } catch (error) {
