@@ -53,7 +53,7 @@ module.exports = {
     });
 
     try {
-      interaction.guild.members.search(target.id).timeout(30 * 1000);
+      interaction.guild.members.fetch(target.id).timeout(30 * 1000);
     } catch (e) {
       interaction.followUp("```\n" + e + "\n```");
     }
