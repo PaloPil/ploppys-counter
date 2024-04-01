@@ -28,7 +28,6 @@ module.exports = {
     console.log(`Commande '/${this.data.name}' reçue. (fakeban)`);
     // Args handling
     const target = interaction.options.getUser("target");
-    const guildTarget = await interaction.guild.members.search(target);
 
     const raison =
       interaction.options.getString("raison") || "Pas de raison. ¯\\_(ツ)_/¯";
@@ -55,9 +54,10 @@ module.exports = {
     });
 
     try {
-      guildTarget.timeout(30 * 1000);
+      const guildTarget = await interaction.guild.members.search(target);
+      await guildTarget.timeout(30 * 1000);
     } catch (error) {
-      interaction.followUp(
+      await interaction.followUp(
         "```\n" + error.message + "\n" + guildTarget + "\n```"
       );
     }
