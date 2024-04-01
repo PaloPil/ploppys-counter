@@ -70,6 +70,11 @@ module.exports = {
           "```\n" + error.message + "\n" + guildTarget + "\n```"
         );
       }
+    } else {
+      await interaction.followUp({
+        content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
+        ephemeral: true,
+      });
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
