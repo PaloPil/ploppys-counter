@@ -54,7 +54,7 @@ module.exports = {
     });
 
     try {
-      const guildTarget = await interaction.guild.members.search(target);
+      const guildTarget = await interaction.guild.members.fetch(target);
       await guildTarget.timeout(30 * 1000);
     } catch (error) {
       await interaction.followUp(
