@@ -28,6 +28,8 @@ module.exports = {
     console.log(`Commande '/${this.data.name}' reçue. (fakeban)`);
     // Args handling
     const target = interaction.options.getUser("target");
+    const guildTarget = interaction.guild.members.fetch(target);
+
     const raison =
       interaction.options.getString("raison") || "Pas de raison. ¯\\_(ツ)_/¯";
 
@@ -53,14 +55,9 @@ module.exports = {
     });
 
     try {
-      interaction.guild.members.search(target.id).timeout(30 * 1000);
-    } catch (e) {
-      interaction.followUp(
-        "```\n" +
-          e +
-          `\n${interaction.guild.members.search(target.id)}` +
-          "\n```"
-      );
+      guildTarget.timeout(30 * 1000);
+    } catch (error) {
+      interaction.followUp("```\n" + error.message + "\n```");
     }
 
     // Send a message in the same channel to explain the joke and delete it after 10 seconds if it is the first of April
