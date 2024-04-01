@@ -27,8 +27,7 @@ module.exports = {
         .setName("timeout")
         .setDescription("Mettre en timeout l'utilisateur ?")
         .setRequired(false)
-    )
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
+    ),
 
   async execute(interaction) {
     console.log(`Commande '/${this.data.name}' reçue. (fakeban)`);
@@ -61,16 +60,20 @@ module.exports = {
       ephemeral: false,
     });
 
-    if (timeout && interaction.user.permissions.has(PermissionFlagsBits.KickMembers)) {
+    if (timeout && interaction.memberPermissions.toArray().includes("KickMembers")) {
       try {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(30 * 1000);
+        await interaction.followUp({
+          content: `L'utilisateur a été mis en timeout pour 30 secondes.`,
+          ephemeral: true,
+        });
       } catch (error) {
-        await interaction.followUp(
-          "```\n" + error.message + "\n" + guildTarget + "\n```"
+        await console.log(
+          "```\n" + error.message + "\n```"
         );
       }
-    } else {
+    } else if (!interaction.memberPermissions.toArray().includes("KickMembers")) {
       await interaction.followUp({
         content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
         ephemeral: true,
