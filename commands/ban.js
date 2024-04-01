@@ -60,7 +60,7 @@ module.exports = {
       ephemeral: false,
     });
 
-    if (timeout && interaction.memberPermissions.toArray().includes("KickMembers")) {
+    if (timeout && (interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
       try {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(30 * 1000);
@@ -73,7 +73,7 @@ module.exports = {
           "```\n" + error.message + "\n```"
         );
       }
-    } else if (!interaction.memberPermissions.toArray().includes("KickMembers")) {
+    } else if (!(interaction.memberPermissions.toArray().includes("KickMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
       await interaction.followUp({
         content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
         ephemeral: true,
