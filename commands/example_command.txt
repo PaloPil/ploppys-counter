@@ -21,7 +21,7 @@ module.exports = {
   async execute(interaction) {
     console.log(`Commande '/${this.data.name}' reçue.`);
     // Args handling
-    let ar1 = interaction.options.getString("arg1") || 100; // 100 is the default value
+    let arg1 = interaction.options.getString("arg1") || 100; // 100 is the default value
     console.log(`Arg1: ${arg1}`);
   }
 }
