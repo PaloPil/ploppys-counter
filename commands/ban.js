@@ -66,7 +66,7 @@ module.exports = {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(timeout * 1000);
         await interaction.followUp({
-          content: `L'utilisateur a été mis en timeout pour 30 secondes.`,
+          content: `L'utilisateur a été mis en timeout pour ${timeout} seconde${timeout>1 ? "s" : ""}.`,
           ephemeral: true,
         });
       } catch (error) {
