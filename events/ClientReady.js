@@ -11,7 +11,7 @@ module.exports = {
       status: "online",
     });
     console.log("Client connected as @" + client.user.tag);
-    console.log("En ligne");
+    console.log("En ligne sur " + client.guilds.cache.size + " serveurs");
     /*client.channels.fetch("1068895807857770579").then((channel) => {
       channel.send("Bot is connected!");
     });*/
