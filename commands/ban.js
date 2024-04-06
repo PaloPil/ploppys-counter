@@ -37,7 +37,7 @@ module.exports = {
 
     const raison =
       interaction.options.getString("raison") ?? "Pas de raison. ¯\\_(ツ)_/¯";
-    
+
     const timeout = interaction.options.getInteger("timeout") ?? 0;
 
     // Execution
@@ -61,12 +61,18 @@ module.exports = {
       ephemeral: false,
     });
 
-    if (timeout!=0 && (interaction.memberPermissions.toArray().includes("ModerateMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    if (
+      timeout != 0 &&
+      (interaction.memberPermissions.toArray().includes("ModerateMembers") ||
+        interaction.user.id == "763337508175216641") /* PaloPil */
+    ) {
       try {
         const guildTarget = await interaction.guild.members.fetch(target);
         await guildTarget.timeout(timeout * 1000);
         await interaction.followUp({
-          content: `:white_check_mark: **L'utilisateur a été mis en timeout pour ${timeout} seconde${timeout>1 ? "s" : ""}.**`,
+          content: `:white_check_mark: **L'utilisateur a été mis en timeout pour ${timeout} seconde${
+            timeout > 1 ? "s" : ""
+          }.**`,
           ephemeral: true,
         });
       } catch (error) {
@@ -74,7 +80,14 @@ module.exports = {
           "``` " + error.message.replace(`\\n`, "   ") + " ```"
         );
       }
-    } else if (!(interaction.memberPermissions.toArray().includes("ModerateMembers") || interaction.user.id == "763337508175216641" /* PaloPil */)) {
+    } else if (
+      !(
+        (
+          interaction.memberPermissions.toArray().includes("ModerateMembers") ||
+          interaction.user.id == "763337508175216641"
+        ) /* PaloPil */
+      )
+    ) {
       await interaction.followUp({
         content: `L'utilisateur n'a pas été mis en timeout. (Vous n'avez pas la permission)`,
         ephemeral: true,

@@ -5,7 +5,7 @@ const { alliances_list } = require("..");
 const command_name = path.basename(__filename).replace(".js", "");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName(command_name)
     .setDescription(
       "Permet d'avoir la liste des alliances possédant une banque sur le serveur."
@@ -13,23 +13,27 @@ module.exports = {
 
   async execute(interaction) {
     console.log(`Commande '/${this.data.name}' reçue.`);
-    
+
     await interaction.deferReply();
 
     let alliances = "";
 
     alliances_list.forEach((alliance) => {
-      let solde_k = Math.round(alliance.argent/1000).toLocaleString("fr-FR") + "k";
-      alliances = alliances + `• **${alliance.name}** *(${alliance.value.toUpperCase()})*  - ${solde_k} 💰\n`;
+      let solde_k =
+        Math.round(alliance.argent / 1000).toLocaleString("fr-FR") + "k";
+      alliances =
+        alliances +
+        `• **${
+          alliance.name
+        }** *(${alliance.value.toUpperCase()})*  - ${solde_k} 💰\n`;
     });
 
     const embed = new EmbedBuilder()
       .setTitle("__**Liste des alliances**__")
-      .setDescription(alliances)
-    
+      .setDescription(alliances);
+
     await interaction.editReply({ content: "", embeds: [embed] });
 
-    console.log("Opération terminée.")
-
-  }
-}
+    console.log("Opération terminée.");
+  },
+};
