@@ -10,6 +10,10 @@ module.exports = {
       activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
       status: "online",
     });
-    console.log(`Le bot est en ligne en tant que @${client.user.tag} (sur ${client.guilds.cache.size} serveurs)`);
+    console.log("Client connected as @" + client.user.tag);
+    console.log("en ligne sur " + client.guilds.cache.size + " serveurs");
+    /*client.channels.fetch("1068895807857770579").then((channel) => {
+      channel.send("Bot is connected!");
+    });*/
   },
 };
