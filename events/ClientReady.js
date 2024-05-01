@@ -10,6 +10,6 @@ module.exports = {
       activities: [{ name: "Your money 💰", type: ActivityType.Watching }],
       status: "online",
     });
-    console.log(`Le bot est en ligne en tant que @${client.user.tag} (sur ${client.guilds.cache.size} serveurs)`);
+    console.log(`En ligne sur ${client.guilds.cache.size} serveurs en tant que @${client.user.tag} !`);
   },
 };
